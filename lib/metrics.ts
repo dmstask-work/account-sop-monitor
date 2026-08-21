@@ -171,6 +171,16 @@ export function computeMetrics(
     (r) => PE_SERVICES.includes((r.jenisLayanan || "").trim().toUpperCase())
   );
 
+  // Revenue PE total excludes MHCU FOR COMPANY
+  const serviceTotalPercentVsLastMonth = computeAggregateVsLastMonth(
+    allRows,
+    dateRange,
+    (r) => {
+      const svc = (r.jenisLayanan || "").trim().toUpperCase();
+      return svc === "HADIR" || svc === "WP";
+    }
+  );
+
   const salesPercentVsLastMonth = computeAggregateVsLastMonth(
     allRows,
     dateRange,
@@ -187,6 +197,7 @@ export function computeMetrics(
     serviceBreakdown,
     salesBreakdown,
     servicePercentVsLastMonth,
+    serviceTotalPercentVsLastMonth,
     salesPercentVsLastMonth,
     lastUpdated: new Date().toLocaleString("id-ID"),
   };

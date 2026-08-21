@@ -7,6 +7,7 @@ interface RevenueTablesProps {
   serviceBreakdown: ServiceSummary[];
   salesBreakdown: SalesSummary[];
   servicePercentVsLastMonth: number;
+  serviceTotalPercentVsLastMonth: number;
   salesPercentVsLastMonth: number;
 }
 
@@ -25,8 +26,26 @@ export default function RevenueTables({
   serviceBreakdown,
   salesBreakdown,
   servicePercentVsLastMonth,
+  serviceTotalPercentVsLastMonth,
   salesPercentVsLastMonth,
 }: RevenueTablesProps) {
+  // Revenue PE total excludes MHCU FOR COMPANY
+  const peTotalRevenue = serviceBreakdown
+    .filter((s) => s.jenisLayanan !== "MHCU FOR COMPANY")
+    .reduce((sum, s) => sum + s.revenue, 0);
+  const peTotalSessions = serviceBreakdown
+    .filter((s) => s.jenisLayanan !== "MHCU FOR COMPANY")
+    .reduce((sum, s) => sum + s.sessions, 0);
+
+  const taTotalRevenue = salesBreakdown.reduce(
+    (sum, s) => sum + s.revenue,
+    0
+  );
+  const taTotalSessions = salesBreakdown.reduce(
+    (sum, s) => sum + s.sessions,
+    0
+  );
+
   return (
     <section className="revenue-tables" aria-label="Rincian revenue">
       <div className="tables-grid">
@@ -35,6 +54,7 @@ export default function RevenueTables({
             <h2>Revenue PE</h2>
             <p className="section-sub">
               <PercentCell value={servicePercentVsLastMonth} /> vs last month
+              <span className="table-note">* Total excludes MHCU FOR COMPANY</span>
             </p>
           </div>
           <div className="table-wrap">
@@ -65,6 +85,16 @@ export default function RevenueTables({
                       </td>
                     </tr>
                   ))
+                )}
+                {serviceBreakdown.length > 0 && (
+                  <tr className="total-row">
+                    <td>Total</td>
+                    <td className="num tnum">{formatNumber(peTotalSessions)}</td>
+                    <td className="num tnum">{formatIDR(peTotalRevenue)}</td>
+                    <td className="num">
+                      <PercentCell value={serviceTotalPercentVsLastMonth} />
+                    </td>
+                  </tr>
                 )}
               </tbody>
             </table>
@@ -106,6 +136,16 @@ export default function RevenueTables({
                       </td>
                     </tr>
                   ))
+                )}
+                {salesBreakdown.length > 0 && (
+                  <tr className="total-row">
+                    <td>Total</td>
+                    <td className="num tnum">{formatNumber(taTotalSessions)}</td>
+                    <td className="num tnum">{formatIDR(taTotalRevenue)}</td>
+                    <td className="num">
+                      <PercentCell value={salesPercentVsLastMonth} />
+                    </td>
+                  </tr>
                 )}
               </tbody>
             </table>

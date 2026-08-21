@@ -504,6 +504,22 @@ tr:last-child td {
   padding: var(--space-xl) var(--space-md);
 }
 
+.total-row td {
+  border-top: 2px solid var(--color-rule);
+  border-bottom: none;
+  font-weight: 700;
+  font-family: var(--font-display);
+  background: var(--color-paper-3);
+}
+
+.table-note {
+  display: block;
+  font-size: var(--text-xs);
+  color: var(--color-muted);
+  font-weight: 400;
+  margin-top: var(--space-2xs);
+}
+
 /* ── Modal ──────────────────────────────────────────────────── */
 .modal-backdrop {
   position: fixed;

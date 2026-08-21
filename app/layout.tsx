@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { Inter, Inter_Tight } from "next/font/google";
-import sopLogo from "@/assets/SOP.png";
+import sopLogo from "@/assets/combine.jpeg";
 import "./globals.css";
 
 const inter = Inter({

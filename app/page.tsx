@@ -18,23 +18,57 @@ const SHEET_URL = process.env.NEXT_PUBLIC_SHEET_CSV_URL;
 const TARGET_STORAGE_KEY = "sop-dashboard-target";
 const SALES_TARGETS_KEY = "sop-dashboard-sales-targets";
 
+const DEFAULT_GLOBAL_TARGET = 320000000;
+
+const DEFAULT_SALES_TARGETS: Record<string, number> = {
+  "MS DHEA": 60000000,
+  GDC: 50000000,
+  "MS NUR": 25000000,
+  "MS KEKE": 25000000,
+  "MS AYU": 35000000,
+  "MS SHINTA": 35000000,
+  "MS ARINA": 35000000,
+  "MS YUYUN": 35000000,
+  "MS PRILLY": 0,
+  B2B: 0,
+};
+
+/** Format a Date as YYYY-MM-DD. */
+function fmtDate(d: Date): string {
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(
+    d.getDate()
+  ).padStart(2, "0")}`;
+}
+
+/** Build a month-to-date range: 1st of current month → today. */
+function currentMonthToDate(): DateRange {
+  const today = new Date();
+  const start = new Date(today.getFullYear(), today.getMonth(), 1);
+  return { start: fmtDate(start), end: fmtDate(today) };
+}
+
 export default function DashboardPage() {
   const [rows, setRows] = useState<SalesRow[]>(SAMPLE_ROWS);
   const [loading, setLoading] = useState(true);
-  const [dateRange, setDateRange] = useState<DateRange | null>(null);
-  const [target, setTarget] = useState<number>(0);
-  const [salesTargets, setSalesTargets] = useState<Record<string, number>>({});
+  const [dateRange, setDateRange] = useState<DateRange | null>(
+    currentMonthToDate
+  );
+  const [target, setTarget] = useState<number>(DEFAULT_GLOBAL_TARGET);
+  const [salesTargets, setSalesTargets] =
+    useState<Record<string, number>>(DEFAULT_SALES_TARGETS);
   const [modalOpen, setModalOpen] = useState(false);
   const [isCapturing, setIsCapturing] = useState(false);
   const dashboardRef = useRef<HTMLDivElement>(null);
 
-  // Load targets from localStorage
+  // Load targets from localStorage (fall back to defaults if empty)
   useEffect(() => {
     try {
       const t = localStorage.getItem(TARGET_STORAGE_KEY);
-      if (t) setTarget(Number(t) || 0);
+      if (t !== null) setTarget(Number(t) || 0);
+      else setTarget(DEFAULT_GLOBAL_TARGET);
       const st = localStorage.getItem(SALES_TARGETS_KEY);
-      if (st) setSalesTargets(JSON.parse(st));
+      if (st !== null) setSalesTargets(JSON.parse(st));
+      else setSalesTargets(DEFAULT_SALES_TARGETS);
     } catch {
       // ignore
     }
@@ -131,6 +165,9 @@ export default function DashboardPage() {
               serviceBreakdown={metrics.serviceBreakdown}
               salesBreakdown={metrics.salesBreakdown}
               servicePercentVsLastMonth={metrics.servicePercentVsLastMonth}
+              serviceTotalPercentVsLastMonth={
+                metrics.serviceTotalPercentVsLastMonth
+              }
               salesPercentVsLastMonth={metrics.salesPercentVsLastMonth}
             />
           </>

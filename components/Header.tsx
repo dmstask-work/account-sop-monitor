@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import sopLogo from "@/assets/SOP.png";
+import sopLogo from "@/assets/combine.jpeg";
 import type { DateRange } from "@/lib/types";
 
 interface HeaderProps {

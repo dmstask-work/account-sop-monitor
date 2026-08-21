@@ -11,6 +11,12 @@ interface TargetModalProps {
   onSave: (globalTarget: number, salesTargets: Record<string, number>) => void;
 }
 
+/** Insert a comma every 3 digits as the user types. */
+function formatWithCommas(value: string): string {
+  const digits = value.replace(/[^\d]/g, "");
+  return digits.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 export default function TargetModal({
   open,
   globalTarget,
@@ -19,11 +25,13 @@ export default function TargetModal({
   onClose,
   onSave,
 }: TargetModalProps) {
-  const [global, setGlobal] = useState(String(globalTarget || ""));
+  const [global, setGlobal] = useState(
+    formatWithCommas(String(globalTarget || ""))
+  );
   const [perSales, setPerSales] = useState<Record<string, string>>(() => {
     const init: Record<string, string> = {};
     for (const name of salesNames) {
-      init[name] = salesTargets[name] ? String(salesTargets[name]) : "";
+      init[name] = salesTargets[name] ? formatWithCommas(String(salesTargets[name])) : "";
     }
     return init;
   });
@@ -79,9 +87,9 @@ export default function TargetModal({
               id="global-target"
               type="text"
               inputMode="numeric"
-              placeholder="e.g. 5000000"
+              placeholder="e.g. 320,000,000"
               value={global}
-              onChange={(e) => setGlobal(e.target.value)}
+              onChange={(e) => setGlobal(formatWithCommas(e.target.value))}
             />
           </div>
 
@@ -100,7 +108,7 @@ export default function TargetModal({
                     onChange={(e) =>
                       setPerSales((prev) => ({
                         ...prev,
-                        [name]: e.target.value,
+                        [name]: formatWithCommas(e.target.value),
                       }))
                     }
                   />

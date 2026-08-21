@@ -51,6 +51,7 @@ export interface DashboardMetrics {
   serviceBreakdown: ServiceSummary[];
   salesBreakdown: SalesSummary[];
   servicePercentVsLastMonth: number;
+  serviceTotalPercentVsLastMonth: number;
   salesPercentVsLastMonth: number;
   lastUpdated: string;
 }
