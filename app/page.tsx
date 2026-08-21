@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { toPng } from "html-to-image";
+import { toBlob } from "html-to-image";
 import Header from "@/components/Header";
 import TopStats from "@/components/TopStats";
 import SalesCards from "@/components/SalesCards";
@@ -116,18 +116,36 @@ export default function DashboardPage() {
     if (!dashboardRef.current) return;
     setIsCapturing(true);
     try {
-      const dataUrl = await toPng(dashboardRef.current, {
+      const blob = await toBlob(dashboardRef.current, {
         pixelRatio: 2,
         backgroundColor: "oklch(97% 0.012 240)",
       });
-      const link = document.createElement("a");
-      link.download = `sales-performance-${new Date()
-        .toISOString()
-        .slice(0, 10)}.png`;
-      link.href = dataUrl;
-      link.click();
+      if (!blob) throw new Error("Failed to render image");
+
+      // Copy the image to the clipboard
+      await navigator.clipboard.write([
+        new ClipboardItem({ "image/png": blob }),
+      ]);
     } catch (err) {
-      console.error("Capture failed:", err);
+      console.error("Copy failed:", err);
+      // Fallback: download the image so the user still gets it
+      try {
+        const dataUrl = await toBlob(dashboardRef.current, {
+          pixelRatio: 2,
+          backgroundColor: "oklch(97% 0.012 240)",
+        });
+        if (dataUrl) {
+          const link = document.createElement("a");
+          link.download = `sales-performance-${new Date()
+            .toISOString()
+            .slice(0, 10)}.png`;
+          link.href = URL.createObjectURL(dataUrl);
+          link.click();
+          URL.revokeObjectURL(link.href);
+        }
+      } catch {
+        // ignore fallback failure
+      }
     } finally {
       setIsCapturing(false);
     }
