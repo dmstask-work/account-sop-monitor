@@ -1,0 +1,88 @@
+/* Hallmark · macrostructure: Stat-Led · tone: soft/utilitarian · anchor hue: cool blue
+ * theme: custom · vibe: "pastel, calm, data-first" · paper: oklch(97% 0.012 240) · accent: oklch(52% 0.12 240)
+ * display: Inter Tight · body: Inter · axes: light / geometric-sans / cool
+ * studied: no · context: user-provided · v0.6.x
+ */
+
+:root {
+  /* ── Color · paper (pastel-tinted toward blue) ─────────────── */
+  --color-paper: oklch(97% 0.012 240);
+  --color-paper-2: oklch(94% 0.016 240);
+  --color-paper-3: oklch(90% 0.020 240);
+
+  /* ── Color · ink ────────────────────────────────────────────── */
+  --color-ink: oklch(24% 0.020 250);
+  --color-ink-2: oklch(42% 0.018 250);
+
+  /* ── Color · supporting greys (pastel-tinted) ───────────────── */
+  --color-rule: oklch(84% 0.016 240);
+  --color-rule-2: oklch(88% 0.014 240);
+  --color-muted: oklch(56% 0.014 250);
+  --color-neutral: oklch(62% 0.012 250);
+
+  /* ── Color · accent (brand #1572A1 → OKLCH) ────────────────── */
+  --color-accent: oklch(52% 0.12 240);
+  --color-accent-soft: oklch(90% 0.030 240);
+  --color-accent-ink: oklch(97% 0.012 240);
+  --color-focus: oklch(50% 0.16 240);
+
+  /* ── Color · header (brand #1572A1) ────────────────────────── */
+  --color-header: #1572a1;
+  --color-header-ink: #ffffff;
+
+  /* ── Color · semantic (pastel) ──────────────────────────────── */
+  --color-success: oklch(62% 0.13 150);
+  --color-success-soft: oklch(93% 0.03 150);
+  --color-warning: oklch(70% 0.13 75);
+  --color-warning-soft: oklch(95% 0.03 75);
+  --color-danger: oklch(58% 0.16 25);
+  --color-danger-soft: oklch(94% 0.03 25);
+
+  /* ── Font ───────────────────────────────────────────────────── */
+  --font-display: "Inter Tight", "Inter", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, monospace;
+
+  /* ── Spacing · 4pt scale ────────────────────────────────────── */
+  --space-2xs: 0.25rem;   /* 4px  */
+  --space-xs: 0.5rem;     /* 8px  */
+  --space-sm: 0.75rem;    /* 12px */
+  --space-md: 1rem;       /* 16px */
+  --space-lg: 1.5rem;     /* 24px */
+  --space-xl: 2rem;       /* 32px */
+  --space-2xl: 3rem;      /* 48px */
+  --space-3xl: 4rem;      /* 64px */
+  --space-4xl: 6rem;      /* 96px */
+
+  /* ── Type scale ─────────────────────────────────────────────── */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+  --text-display-s: 3rem;
+  --text-display: 4rem;
+
+  /* ── Radius ─────────────────────────────────────────────────── */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-full: 9999px;
+
+  /* ── Motion ─────────────────────────────────────────────────── */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 120ms;
+  --dur-base: 200ms;
+  --dur-slow: 400ms;
+
+  /* ── Shadow ─────────────────────────────────────────────────── */
+  --shadow-sm: 0 1px 2px oklch(24% 0.02 250 / 0.06);
+  --shadow-md: 0 4px 12px oklch(24% 0.02 250 / 0.08);
+  --shadow-lg: 0 12px 32px oklch(24% 0.02 250 / 0.12);
+}
