@@ -148,8 +148,21 @@ export function computeMetrics(
     .sort((a, b) => b.revenue - a.revenue);
 
   // ── Revenue TA SOP (by Nama Sales — excluding GDC & MS DHEA) ──
+  // Only TA and MP transactions (by Detail Produk) count toward this table.
   const EXCLUDED_SALES = ["GDC", "MS DHEA", "B2B", "MS KEKE"];
-  const salesBreakdown: SalesSummary[] = Array.from(salesMap.entries())
+  const TA_SOP_DETAILS = new Set(["TA", "MP"]);
+  const taSalesMap = new Map<string, { revenue: number; sessions: number }>();
+  for (const r of rangeRows) {
+    if (!TA_SOP_DETAILS.has((r.detailProduk || "").trim().toUpperCase())) continue;
+    const name = normalizeName(r.namaSales);
+    if (!name) continue;
+    const cur = taSalesMap.get(name) ?? { revenue: 0, sessions: 0 };
+    cur.revenue += r.nominal;
+    cur.sessions += r.sesi;
+    taSalesMap.set(name, cur);
+  }
+
+  const salesBreakdown: SalesSummary[] = Array.from(taSalesMap.entries())
     .filter(([name]) => !EXCLUDED_SALES.includes(name))
     .map(([name, { revenue, sessions }]) => ({
       name,
@@ -184,7 +197,9 @@ export function computeMetrics(
   const salesPercentVsLastMonth = computeAggregateVsLastMonth(
     allRows,
     dateRange,
-    (r) => !EXCLUDED_SALES.includes(normalizeName(r.namaSales))
+    (r) =>
+      TA_SOP_DETAILS.has((r.detailProduk || "").trim().toUpperCase()) &&
+      !EXCLUDED_SALES.includes(normalizeName(r.namaSales))
   );
 
   return {
