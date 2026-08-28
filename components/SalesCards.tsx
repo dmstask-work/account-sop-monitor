@@ -62,7 +62,9 @@ export default function SalesCards({ salespersons }: SalesCardsProps) {
                     aria-valuemax={100}
                   >
                     <div
-                      className="progress-fill"
+                      className={`progress-fill ${
+                        isOnTarget ? "progress-fill-success" : "progress-fill-danger"
+                      }`}
                       style={{ width: `${progress}%` }}
                     />
                   </div>
@@ -73,7 +75,7 @@ export default function SalesCards({ salespersons }: SalesCardsProps) {
                         : formatIDR(s.revenue)}
                     </span>
                     {hasTarget && s.gapToTarget > 0 && (
-                      <span className="tnum muted">
+                      <span className="tnum">
                         Gap: {formatIDR(s.gapToTarget)}
                       </span>
                     )}

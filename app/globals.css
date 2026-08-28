@@ -98,6 +98,14 @@ button {
   transition: width var(--dur-slow) var(--ease-out);
 }
 
+.progress-fill-success {
+  background: var(--color-success);
+}
+
+.progress-fill-danger {
+  background: var(--color-danger);
+}
+
 /* ── Buttons ────────────────────────────────────────────────── */
 .btn {
   display: inline-flex;
@@ -245,7 +253,7 @@ tr:last-child td {
 }
 
 .header-title h1 {
-  font-size: var(--text-xl);
+  font-size: var(--text-3xl);
   font-weight: 700;
   color: var(--color-header-ink);
 }
@@ -378,7 +386,7 @@ tr:last-child td {
 
 .stat-hint {
   font-size: var(--text-xs);
-  color: var(--color-muted);
+  color: var(--color-slate-50);
 }
 
 .stat-progress {
@@ -391,7 +399,7 @@ tr:last-child td {
   display: flex;
   justify-content: space-between;
   font-size: var(--text-xs);
-  color: var(--color-muted);
+  color: var(--color-slate-50);
 }
 
 /* ── Section heads ──────────────────────────────────────────── */
@@ -405,7 +413,7 @@ tr:last-child td {
 
 .section-sub {
   font-size: var(--text-sm);
-  color: var(--color-muted);
+  color: var(--color-slate-50);
   margin-top: var(--space-2xs);
 }
 
@@ -455,7 +463,7 @@ tr:last-child td {
   display: flex;
   justify-content: space-between;
   font-size: var(--text-xs);
-  color: var(--color-muted);
+  color: var(--color-slate-50);
   gap: var(--space-sm);
   flex-wrap: wrap;
 }

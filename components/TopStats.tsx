@@ -40,7 +40,12 @@ export default function TopStats({
 
         <div className="stat-progress">
           <div className="progress-track" role="progressbar" aria-valuenow={progress} aria-valuemin={0} aria-valuemax={100}>
-            <div className="progress-fill" style={{ width: `${progress}%` }} />
+            <div
+              className={`progress-fill ${
+                isOnTarget ? "progress-fill-success" : "progress-fill-danger"
+              }`}
+              style={{ width: `${progress}%` }}
+            />
           </div>
           <div className="stat-progress-labels">
             <span className="tnum">{formatIDR(totalRevenue)}</span>
