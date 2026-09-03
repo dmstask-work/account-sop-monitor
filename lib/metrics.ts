@@ -121,7 +121,7 @@ export function computeMetrics(
     .sort((a, b) => b.revenue - a.revenue);
 
   // ── Revenue PE (by Jenis Layanan — only HADIR, WP, MHCU FOR COMPANY) ──
-  const PE_SERVICES = ["HADIR", "WP", "MHCU FOR COMPANY"];
+  const PE_SERVICES = ["HADIR", "WP", "MHCU FOR COMPANY", "PARTNERSHIP"];
   const serviceMap = new Map<string, { revenue: number; sessions: number }>();
   for (const r of rangeRows) {
     const raw = r.jenisLayanan || "";
