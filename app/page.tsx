@@ -115,10 +115,12 @@ export default function DashboardPage() {
   const handleCapture = useCallback(async () => {
     if (!dashboardRef.current) return;
     setIsCapturing(true);
+    document.body.classList.add("is-exporting");
     try {
       const blob = await toBlob(dashboardRef.current, {
-        pixelRatio: 2,
+        pixelRatio: 3,
         backgroundColor: "oklch(97% 0.012 240)",
+        cacheBust: true,
       });
       if (!blob) throw new Error("Failed to render image");
 
@@ -131,8 +133,9 @@ export default function DashboardPage() {
       // Fallback: download the image so the user still gets it
       try {
         const dataUrl = await toBlob(dashboardRef.current, {
-          pixelRatio: 2,
+          pixelRatio: 3,
           backgroundColor: "oklch(97% 0.012 240)",
+          cacheBust: true,
         });
         if (dataUrl) {
           const link = document.createElement("a");
@@ -147,6 +150,7 @@ export default function DashboardPage() {
         // ignore fallback failure
       }
     } finally {
+      document.body.classList.remove("is-exporting");
       setIsCapturing(false);
     }
   }, []);

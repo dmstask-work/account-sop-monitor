@@ -685,6 +685,62 @@ tr:last-child td {
   text-align: center;
 }
 
+/* ── Export mode (toggled on <body> during clipboard capture) ── */
+.is-exporting .footer,
+.is-exporting .header-sub,
+.is-exporting .header .btn,
+.is-exporting .date-range,
+.is-exporting .stat-hint,
+.is-exporting .table-note {
+  display: none !important;
+}
+
+.is-exporting .header {
+  position: static !important;
+  box-shadow: none !important;
+}
+
+.is-exporting .progress-track {
+  height: 14px !important;
+}
+
+.is-exporting .card {
+  padding: var(--space-xl) !important;
+}
+
+.is-exporting .stat-value {
+  font-size: var(--text-4xl) !important;
+}
+
+.is-exporting .stat-mini .stat-value {
+  font-size: var(--text-3xl) !important;
+}
+
+.is-exporting .sales-card-stats .stat-value {
+  font-size: var(--text-2xl) !important;
+}
+
+.is-exporting h1 {
+  font-size: var(--text-4xl) !important;
+}
+
+.is-exporting h2 {
+  font-size: var(--text-2xl) !important;
+}
+
+.is-exporting table {
+  font-size: var(--text-base) !important;
+}
+
+.is-exporting th {
+  font-size: var(--text-sm) !important;
+}
+
+.is-exporting .badge {
+  font-size: var(--text-sm) !important;
+  padding: 4px 12px !important;
+}
+
 /* ── Responsive ─────────────────────────────────────────────── */
 @media (max-width: 900px) {
   .top-stats {
