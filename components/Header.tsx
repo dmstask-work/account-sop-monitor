@@ -93,6 +93,13 @@ export default function Header({
             </div>
           </div>
 
+          {/* Export-only plain-text date range */}
+          {dateRange && (
+            <span className="date-range-text">
+              {dateRange.start} — {dateRange.end}
+            </span>
+          )}
+
           {dateRange && (
             <button
               type="button"

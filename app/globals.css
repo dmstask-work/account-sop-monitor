@@ -689,10 +689,28 @@ tr:last-child td {
 .is-exporting .footer,
 .is-exporting .header-sub,
 .is-exporting .header .btn,
-.is-exporting .date-range,
+.is-exporting .date-range .field,
+.is-exporting .date-range .date-range-sep,
 .is-exporting .stat-hint,
 .is-exporting .table-note {
   display: none !important;
+}
+
+.is-exporting .date-range input {
+  display: none !important;
+}
+
+/* Export-only date text (hidden in web view) */
+.date-range-text {
+  display: none;
+}
+
+.is-exporting .date-range-text {
+  display: inline;
+  font-size: var(--text-xl);
+  font-weight: 600;
+  color: var(--color-header-ink);
+  white-space: nowrap;
 }
 
 .is-exporting .header {
